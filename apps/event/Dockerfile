@@ -7,5 +7,5 @@ RUN npm install
 COPY . .
 RUN npm run build:event
 
-EXPOSE 3000
+EXPOSE 4002
 CMD ["npm", "run", "start:event"]

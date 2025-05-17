@@ -37,7 +37,7 @@ services:
       dockerfile: apps/auth/Dockerfile
     restart: always
     ports:
-      - "4001:3001"
+      - "4001:4001"
     depends_on:
       - auth-db
     environment:
@@ -54,7 +54,7 @@ services:
       dockerfile: apps/event/Dockerfile
     restart: always
     ports:
-      - "4002:3002"
+      - "4002:4002"
     depends_on:
       - event-db
     environment:
@@ -70,7 +70,7 @@ services:
       dockerfile: apps/gateway/Dockerfile
     restart: always
     ports:
-      - "4000:3000"
+      - "4000:4000"
     depends_on:
       - auth
       - event

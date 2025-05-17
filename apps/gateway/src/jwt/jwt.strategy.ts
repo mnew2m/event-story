@@ -6,19 +6,19 @@ import {JwtPayload} from "./jwt-payload.interface";
 import {configuration} from "../../../../config/configuration";
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy){
-    constructor(private readonly authService: AuthService) {
-        const jwtSecret: string = configuration().JWT.SECRET!;
-        if (!jwtSecret) throw new Error('JWT_SECRET is not defined');
+export class JwtStrategy extends PassportStrategy(Strategy) {
+  constructor(private readonly authService: AuthService) {
+    const jwtSecret: string = configuration().JWT.SECRET!;
+    if (!jwtSecret) throw new Error('JWT_SECRET is not defined');
 
-        super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            ignoreExpiration: false,
-            secretOrKey: jwtSecret
-        });
-    }
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      secretOrKey: jwtSecret
+    });
+  }
 
-    async validate(payload: JwtPayload) {
-        return await this.authService.findOneByUsername(payload.username);
-    }
+  async validate(payload: JwtPayload) {
+    return await this.authService.findOneByUsername(payload.username);
+  }
 }

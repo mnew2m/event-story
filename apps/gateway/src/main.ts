@@ -1,13 +1,9 @@
-import {NestFactory, Reflector} from '@nestjs/core';
-import { GatewayModule } from './module/gateway.module';
-import {JwtAuthGuard} from "./jwt/jwt-auth.guard";
+import {NestFactory} from '@nestjs/core';
+import {GatewayModule} from './module/gateway.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(GatewayModule);
-
-  const reflector = app.get(Reflector);
-  app.useGlobalGuards(new JwtAuthGuard(reflector));
-
-  await app.listen(3000, '0.0.0.0');
+  await app.listen(4000, '0.0.0.0');
 }
+
 bootstrap();

@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
-import { GatewayController } from '../controller/gateway.controller';
-import { GatewayService } from '../service/gateway.service';
+import {Module} from '@nestjs/common';
+import {GatewayController} from '../controller/gateway.controller';
+import {GatewayAuthController} from '../controller/gateway-auth.controller';
+import {GatewayService} from '../service/gateway.service';
 import {JwtAuthGuard} from "../jwt/jwt-auth.guard";
 import {RolesGuard} from "../roles/roles.guard";
 import {JwtStrategy} from "../jwt/jwt.strategy";
@@ -8,6 +9,7 @@ import {ConfigModule} from "@nestjs/config";
 import {configuration} from "../../../../config/configuration";
 import {AuthModule} from "../../../auth/src/auth.module";
 import {HttpModule} from "@nestjs/axios";
+import {APP_GUARD} from "@nestjs/core";
 
 @Module({
   imports: [
@@ -19,8 +21,14 @@ import {HttpModule} from "@nestjs/axios";
       envFilePath: ['.env'], // env 파일 경로
     }),
   ],
-  controllers: [GatewayController],
-  providers: [GatewayService, JwtAuthGuard, RolesGuard, JwtStrategy],
-  exports: [JwtStrategy]
+  controllers: [GatewayController, GatewayAuthController],
+  providers: [GatewayService, JwtStrategy, {
+    provide: APP_GUARD,
+    useClass: JwtAuthGuard
+  }, {
+    provide: APP_GUARD,
+    useClass: RolesGuard
+  }]
 })
-export class GatewayModule {}
+export class GatewayModule {
+}

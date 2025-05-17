@@ -7,5 +7,5 @@ RUN npm install
 COPY . .
 RUN npm run build:auth
 
-EXPOSE 3000
+EXPOSE 4001
 CMD ["npm", "run", "start:auth"]

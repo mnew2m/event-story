@@ -1,4 +1,4 @@
 FROM ubuntu:latest
-LABEL authors="Myung Shin"
+LABEL authors="Min Kyeong"
 
 ENTRYPOINT ["top", "-b"]
