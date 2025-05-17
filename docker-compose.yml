@@ -1,0 +1,89 @@
+services:
+  # Auth Database 설정
+  auth-db:
+    env_file: .env
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - auth-db-data:/data/db # 볼륨 경로
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=${AUTH_DB}
+    networks:
+      - backend-network # 네트워크명
+
+  # Event Database 설정
+  event-db:
+    env_file: .env
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    volumes:
+      - event-db-data:/data/db # 볼륨 경로
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=${EVENT_DB}
+    networks:
+      - backend-network # 네트워크명
+
+  # Auth 서버 설정
+  auth:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: apps/auth/Dockerfile
+    restart: always
+    ports:
+      - "4001:3001"
+    depends_on:
+      - auth-db
+    environment:
+      - MONGODB_URI=${MONGODB_URI_AUTH}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - backend-network # 네트워크명
+
+  # Event 서버 설정
+  event:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: apps/event/Dockerfile
+    restart: always
+    ports:
+      - "4002:3002"
+    depends_on:
+      - event-db
+    environment:
+      - MONGODB_URI=${MONGODB_URI_EVENT}
+    networks:
+      - backend-network # 네트워크명
+
+  # Gateway 서버 설정
+  gateway:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: apps/gateway/Dockerfile
+    restart: always
+    ports:
+      - "4000:3000"
+    depends_on:
+      - auth
+      - event
+    environment:
+      - AUTH_SERVICE_URL=${AUTH_SERVICE_URL}
+      - EVENT_SERVICE_URL=${EVENT_SERVICE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - backend-network # 네트워크명
+
+volumes:
+  auth-db-data:
+  event-db-data:
+
+networks:
+  backend-network:
