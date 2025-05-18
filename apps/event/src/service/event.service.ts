@@ -1,4 +1,4 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {ConflictException, Injectable, NotFoundException, UnprocessableEntityException} from '@nestjs/common';
 import {EventDto} from "../dto/event.dto";
 import {Event, EVENT_MODEL_NAME} from "../schema/event.schema";
 import {InjectModel} from "@nestjs/mongoose";
@@ -9,12 +9,16 @@ import {SearchEventDto} from "../dto/search-event.dto";
 import {EventStatus} from "../../../common/enum/event.enum";
 import {YnEnum} from "../../../common/enum/yn.enum";
 import {SearchRewardDto} from "../dto/search-reward.dto";
+import {RewardReqDto} from "../dto/reward-req.dto";
+import {REWARD_REQ_MODEL_NAME, RewardReq} from "../schema/reward-req.schema";
+import {SearchRewardReqDto} from "../dto/search-reward-req.dto";
 
 @Injectable()
 export class EventService {
   constructor(
     @InjectModel(EVENT_MODEL_NAME) private eventModel: Model<Event>,
-    @InjectModel(REWARD_MODEL_NAME) private rewardModel: Model<Reward>
+    @InjectModel(REWARD_MODEL_NAME) private rewardModel: Model<Reward>,
+    @InjectModel(REWARD_REQ_MODEL_NAME) private rewardReqModel: Model<RewardReq>,
   ) {
   }
 
@@ -99,5 +103,77 @@ export class EventService {
     });
 
     return reward.save();
+  }
+
+  async saveRewardReq(dto: RewardReqDto): Promise<RewardReq> {
+    const {
+      username,
+      eventId,
+      userConditionNum,
+      reqDate,
+      status,
+      reason,
+    } = dto;
+
+    // eventId 존재 여부 체크
+    const checkEvent = await this.eventModel.findById(eventId).exec();
+    if (!checkEvent) throw new NotFoundException(`Event with id ${eventId} not found`);
+
+    // RewardReq -> eventId, username 중복 요청 체크
+    const checkRewardReq = await this.rewardReqModel.findOne({eventId, username}).exec();
+    if (checkRewardReq) throw new ConflictException(`Reward request already exists for user "${username}" and event "${eventId}`);
+
+    // conditionNum 충족 여부 체크
+    if (checkEvent.conditionNum.valueOf() <= userConditionNum) {
+      const rewardReq = new this.rewardReqModel({
+        username,
+        eventId,
+        reqDate,
+        status,
+        reason
+      });
+
+      return rewardReq.save();
+    } else {
+      throw new UnprocessableEntityException(`Reward request denied: condition title "${checkEvent.title}" not satisfied.`);
+    }
+  }
+
+  async getRewardReqList(dto: SearchRewardReqDto): Promise<RewardReq[]> {
+    const filter: any = {};
+
+    if (dto.reqUsername && dto.reqUsername === dto.username) {
+      filter.username = dto.username;
+    } else if (!dto.reqUsername && dto.username) {
+      filter.username = { $regex: dto.username, $options: 'i' };
+    }
+
+    if (dto.eventId) filter.eventId = dto.eventId;
+
+    if (dto.rewardType) {
+      const rewardList = await this.rewardModel.find({ type: dto.rewardType }).exec();
+      const eventIdList = rewardList.map(reward => reward.eventId.toString());
+
+      if (filter.eventId) {
+        if (!eventIdList.includes(filter.eventId.toString())) {
+          return [];
+        }
+      } else {
+        filter.eventId = { $in: eventIdList };
+      }
+    }
+
+    if (dto.rewardReqStatus) filter.status = dto.rewardReqStatus;
+
+    const rewardReqList = await this.rewardReqModel.find(filter)
+      .populate({
+        path: 'eventId',
+        match: {
+          ...(dto.eventCondition && { condition: dto.eventCondition }),
+          ...(dto.eventStatus && { status: dto.eventStatus })
+        }
+      }).exec();
+
+    return rewardReqList.filter(rewardReq => rewardReq.eventId);
   }
 }

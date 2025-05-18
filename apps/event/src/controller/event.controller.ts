@@ -1,11 +1,14 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
-import { EventService } from '../service/event.service';
+import {Body, Controller, ForbiddenException, Post} from '@nestjs/common';
+import {EventService} from '../service/event.service';
 import {EventDto} from "../dto/event.dto";
 import {Event} from "../schema/event.schema";
 import {RewardDto} from "../dto/reward.dto";
 import {Reward} from "../schema/reward.schema";
 import {SearchEventDto} from "../dto/search-event.dto";
 import {SearchRewardDto} from "../dto/search-reward.dto";
+import {RewardReq} from "../schema/reward-req.schema";
+import {RewardReqDto} from "../dto/reward-req.dto";
+import {SearchRewardReqDto} from "../dto/search-reward-req.dto";
 
 @Controller()
 export class EventController {
@@ -37,13 +40,24 @@ export class EventController {
 
   // 이벤트에 대한 보상 요청
   @Post('reward-req/save')
-  async saveRewardReq() {}
+  async saveRewardReq(@Body() dto: RewardReqDto): Promise<RewardReq> {
+    return this.eventService.saveRewardReq(dto);
+  }
 
   // 요청 내역 조회 (전체)
-  @Get('reward-req/list')
-  async getRewardReqList() {}
+  @Post('reward-req/list')
+  async getRewardReqList(@Body() dto: SearchRewardReqDto): Promise<RewardReq[]> {
+    return this.eventService.getRewardReqList(dto);
+  }
 
   // 요청 내역 조회 (본인)
-  @Get('reward-req/my-list')
-  async getRewardReqMyList() {}
+  @Post('reward-req/my-list')
+  async getRewardReqMyList(@Body() dto: SearchRewardReqDto
+  ): Promise<RewardReq[]> {
+    if (dto.reqUsername === dto.username) {
+      return this.eventService.getRewardReqList(dto);
+    } else {
+      throw new ForbiddenException('You are not allowed to access this user\'s data');
+    }
+  }
 }
