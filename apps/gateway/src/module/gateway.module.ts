@@ -10,6 +10,7 @@ import {configuration} from "../../../../config/configuration";
 import {AuthModule} from "../../../auth/src/auth.module";
 import {HttpModule} from "@nestjs/axios";
 import {APP_GUARD} from "@nestjs/core";
+import {GatewayEventController} from "../controller/gateway-event.controller";
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import {APP_GUARD} from "@nestjs/core";
       envFilePath: ['.env'], // env 파일 경로
     }),
   ],
-  controllers: [GatewayController, GatewayAuthController],
+  controllers: [GatewayController, GatewayAuthController, GatewayEventController],
   providers: [GatewayService, JwtStrategy, {
     provide: APP_GUARD,
     useClass: JwtAuthGuard

@@ -1,10 +1,11 @@
 import {ConflictException, Injectable, UnauthorizedException} from '@nestjs/common';
-import {User, USER_MODEL_NAME, UserRole} from "./schema/user.schema";
+import {User, USER_MODEL_NAME} from "./schema/user.schema";
 import {Model} from "mongoose";
 import {InjectModel} from "@nestjs/mongoose";
-import {CreateUserDto} from "../../../libs/dto/create-user.dto";
+import {CreateUserDto} from "./dto/create-user.dto";
 import {JwtService} from "@nestjs/jwt";
 import {LoginDto} from "./dto/login.dto";
+import {UserRole} from "../../common/enum/auth.enum";
 
 @Injectable()
 export class AuthService {

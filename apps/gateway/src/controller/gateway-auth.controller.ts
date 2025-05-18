@@ -3,7 +3,7 @@ import {HttpService} from "@nestjs/axios";
 import {Public} from "../../../common/decorators/public-decorator";
 import {LoginDto} from "../../../auth/src/dto/login.dto";
 import {firstValueFrom} from "rxjs";
-import {CreateUserDto} from "../../../../libs/dto/create-user.dto";
+import {CreateUserDto} from "../../../auth/src/dto/create-user.dto";
 
 const AUTH_BASE_URL = 'http://auth:4001/auth';
 

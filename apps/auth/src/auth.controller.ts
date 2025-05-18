@@ -1,7 +1,7 @@
 import {Body, Controller, Get, Post} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {User} from "./schema/user.schema";
-import {CreateUserDto} from "../../../libs/dto/create-user.dto";
+import {CreateUserDto} from "./dto/create-user.dto";
 import {LoginDto} from "./dto/login.dto";
 import {Public} from "../../common/decorators/public-decorator";
 

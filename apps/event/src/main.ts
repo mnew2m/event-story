@@ -1,5 +1,5 @@
 import {NestFactory, Reflector} from '@nestjs/core';
-import { EventModule } from './event.module';
+import { EventModule } from './module/event.module';
 import {JwtAuthGuard} from "../../gateway/src/jwt/jwt-auth.guard";
 
 async function bootstrap() {

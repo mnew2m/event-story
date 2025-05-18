@@ -1,5 +1,5 @@
 import {IsEnum, IsNotEmpty, IsString} from "class-validator";
-import {UserRole} from "../../apps/auth/src/schema/user.schema";
+import {UserRole} from "../../../common/enum/auth.enum";
 
 export class CreateUserDto {
     @IsString()
