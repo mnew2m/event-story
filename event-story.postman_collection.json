@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "19dfec21-dd36-4811-9b55-05940e58ce1b",
+		"name": "event-story",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32240770"
+	},
+	"item": [
+		{
+			"name": "gateway",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "로그인 (*토큰발급*)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "유저생성",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"operator1\",\r\n    \"password\": \"1\",\r\n    \"role\": \"OPERATOR\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/auth/create-user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"auth",
+										"create-user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "event",
+					"item": [
+						{
+							"name": "이벤트 목록 조회 (USER, OPERATOR, ADMIN)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODJiY2FlODIzYzc4YTI4N2NhZmI1ZmQiLCJ1c2VybmFtZSI6ImFkbWluMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NzcwNjMzOCwiZXhwIjoxNzQ3NzA5OTM4fQ.jhdGnR_o1AHPHgksM4kDjmKsGxr7gsm33K7Kb-3AoV8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"메소 보상\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/event/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"event",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "이벤트 생성 (OPERATOR, ADMIN)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODJiY2FlODIzYzc4YTI4N2NhZmI1ZmQiLCJ1c2VybmFtZSI6ImFkbWluMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NzcwNjMzOCwiZXhwIjoxNzQ3NzA5OTM4fQ.jhdGnR_o1AHPHgksM4kDjmKsGxr7gsm33K7Kb-3AoV8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"8일 연속 로그인 시 88888메소 보상\",\r\n    \"desc\": \"\",\r\n    \"condition\": \"EC.001\",\r\n    \"conditionNum\": 8,\r\n    \"startDate\": \"2025-05-20\",\r\n    \"endDate\": \"2025-05-31\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/event/save",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"event",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "보상 목록 조회 (USER, OPERATOR, ADMIN)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODJiY2FlODIzYzc4YTI4N2NhZmI1ZmQiLCJ1c2VybmFtZSI6ImFkbWluMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NzcwNjMzOCwiZXhwIjoxNzQ3NzA5OTM4fQ.jhdGnR_o1AHPHgksM4kDjmKsGxr7gsm33K7Kb-3AoV8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": \"682be1392afae779e2195656\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/reward/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"reward",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "보상 생성 (OPERATOR, ADMIN)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODJiY2FlODIzYzc4YTI4N2NhZmI1ZmQiLCJ1c2VybmFtZSI6ImFkbWluMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NzcwNjMzOCwiZXhwIjoxNzQ3NzA5OTM4fQ.jhdGnR_o1AHPHgksM4kDjmKsGxr7gsm33K7Kb-3AoV8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": \"682be1392afae779e2195656\",\r\n    \"name\": \"7일 연속 로그인 77777 메소 보상\",\r\n    \"type\": \"RT.001\",\r\n    \"quantity\": 77777\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/reward/save",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"reward",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "보상 요청 (USER, ADMIN)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODJiY2FlODIzYzc4YTI4N2NhZmI1ZmQiLCJ1c2VybmFtZSI6ImFkbWluMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NzcxMjAyOSwiZXhwIjoxNzQ3NzE1NjI5fQ.wX3_lkjovWVSkw42CeGuRLDFlvih-7gDOpzILBtgApo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"eventId\": \"682be1392afae779e2195656\",\r\n    \"userConditionNum\": 7,\r\n    \"reqDate\": \"2025-05-31\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/reward-req/save",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"reward-req",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "보상 요청 목록 조회 (OPERATOR, AUDITOR, ADMIN)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODJiY2FlODIzYzc4YTI4N2NhZmI1ZmQiLCJ1c2VybmFtZSI6ImFkbWluMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NzcxMjAyOSwiZXhwIjoxNzQ3NzE1NjI5fQ.wX3_lkjovWVSkw42CeGuRLDFlvih-7gDOpzILBtgApo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"operator1\",\r\n    \"eventCondition\": \"EC.001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/reward-req/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"reward-req",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "보상 요청 목록 조회 (ALL)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODJiY2FlODIzYzc4YTI4N2NhZmI1ZmQiLCJ1c2VybmFtZSI6ImFkbWluMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NzcxMjAyOSwiZXhwIjoxNzQ3NzE1NjI5fQ.wX3_lkjovWVSkw42CeGuRLDFlvih-7gDOpzILBtgApo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"reqUsername\": \"admin1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/reward-req/my-list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"reward-req",
+										"my-list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
