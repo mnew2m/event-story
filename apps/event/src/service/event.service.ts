@@ -1,4 +1,10 @@
-import {ConflictException, Injectable, NotFoundException, UnprocessableEntityException} from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException
+} from '@nestjs/common';
 import {EventDto} from "../dto/event.dto";
 import {Event, EVENT_MODEL_NAME} from "../schema/event.schema";
 import {InjectModel} from "@nestjs/mongoose";
@@ -89,7 +95,7 @@ export class EventService {
 
     // eventId로 Event 체크 후 진행
     const checkEvent = await this.eventModel.findById(eventId).exec();
-    if (!checkEvent) throw new NotFoundException(`Event with id ${eventId} not found`);
+    if (!checkEvent) throw new NotFoundException('존재하지 않는 이벤트입니다.');
 
     // 보상 등록 시 이벤트 rewardYn 업데이트
     checkEvent.rewardYn = YnEnum.Y;
@@ -115,13 +121,16 @@ export class EventService {
       reason,
     } = dto;
 
-    // eventId 존재 여부 체크
+    // eventId 존재 여부, event start/end Date 체크
     const checkEvent = await this.eventModel.findById(eventId).exec();
-    if (!checkEvent) throw new NotFoundException(`Event with id ${eventId} not found`);
+    if (!checkEvent) throw new NotFoundException('존재하지 않는 이벤트입니다.');
+
+    const reqDateFormat: Date = new Date(reqDate);
+    if (checkEvent.startDate > reqDateFormat || checkEvent.endDate < reqDateFormat) throw new BadRequestException('이벤트 기간이 아닙니다.');
 
     // RewardReq -> eventId, username 중복 요청 체크
     const checkRewardReq = await this.rewardReqModel.findOne({eventId, username}).exec();
-    if (checkRewardReq) throw new ConflictException(`Reward request already exists for user "${username}" and event "${eventId}`);
+    if (checkRewardReq) throw new ConflictException('보상 중복 요청입니다.');
 
     // conditionNum 충족 여부 체크
     if (checkEvent.conditionNum.valueOf() <= userConditionNum) {
@@ -135,7 +144,7 @@ export class EventService {
 
       return rewardReq.save();
     } else {
-      throw new UnprocessableEntityException(`Reward request denied: condition title "${checkEvent.title}" not satisfied.`);
+      throw new UnprocessableEntityException('보상 지급 조건에 충족되지 않습니다.');
     }
   }
 

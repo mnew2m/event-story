@@ -20,7 +20,7 @@ export class GatewayEventController {
 
   // 이벤트 목록 조회
   @Post('event/list')
-  @Roles(UserRole.OPERATOR, UserRole.ADMIN)
+  @Roles(UserRole.USER, UserRole.OPERATOR, UserRole.ADMIN)
   async getEventList(@Body() body: SearchEventDto) {
     const {data} = await firstValueFrom(
       this.http.post(`${EVENT_BASE_URL}/event/list`, body)
@@ -40,7 +40,7 @@ export class GatewayEventController {
 
   // 보상 목록 조회
   @Post('reward/list')
-  @Roles(UserRole.OPERATOR, UserRole.ADMIN)
+  @Roles(UserRole.USER, UserRole.OPERATOR, UserRole.ADMIN)
   async getRewardList(@Body() body: SearchRewardDto) {
     const {data} = await firstValueFrom(
       this.http.post(`${EVENT_BASE_URL}/reward/list`, body)
