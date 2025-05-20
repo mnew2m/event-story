@@ -5,11 +5,11 @@ import {Roles} from "../roles/roles.decorator";
 import {EventDto} from "../../../event/src/dto/event.dto";
 import {RewardDto} from "../../../event/src/dto/reward.dto";
 import {SearchEventDto} from "../../../event/src/dto/search-event.dto";
-import {UserRole} from "../../../common/enum/auth.enum";
+import {UserRole} from "../../../../common/enums/auth.enum";
 import {SearchRewardDto} from "../../../event/src/dto/search-reward.dto";
 import {RewardReqDto} from "../../../event/src/dto/reward-req.dto";
 import {SearchRewardReqDto} from "../../../event/src/dto/search-reward-req.dto";
-import {AuthRequest} from "../../../common/types/auth-request.interface";
+import {AuthRequest} from "../../../../common/interfaces/auth-request.interface";
 
 const EVENT_BASE_URL = 'http://event:4002';
 

@@ -6,17 +6,17 @@ import {
   UnprocessableEntityException
 } from '@nestjs/common';
 import {EventDto} from "../dto/event.dto";
-import {Event, EVENT_MODEL_NAME} from "../schema/event.schema";
+import {Event, EVENT_MODEL_NAME} from "../schemas/event.schema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import {RewardDto} from "../dto/reward.dto";
-import {Reward, REWARD_MODEL_NAME} from "../schema/reward.schema";
+import {Reward, REWARD_MODEL_NAME} from "../schemas/reward.schema";
 import {SearchEventDto} from "../dto/search-event.dto";
-import {EventStatus} from "../../../common/enum/event.enum";
-import {YnEnum} from "../../../common/enum/yn.enum";
+import {EventStatus} from "../../../../common/enums/event.enum";
+import {YnEnum} from "../../../../common/enums/yn.enum";
 import {SearchRewardDto} from "../dto/search-reward.dto";
 import {RewardReqDto} from "../dto/reward-req.dto";
-import {REWARD_REQ_MODEL_NAME, RewardReq} from "../schema/reward-req.schema";
+import {REWARD_REQ_MODEL_NAME, RewardReq} from "../schemas/reward-req.schema";
 import {SearchRewardReqDto} from "../dto/search-reward-req.dto";
 
 @Injectable()

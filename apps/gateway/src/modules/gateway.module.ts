@@ -1,16 +1,16 @@
 import {Module} from '@nestjs/common';
-import {GatewayController} from '../controller/gateway.controller';
-import {GatewayAuthController} from '../controller/gateway-auth.controller';
-import {GatewayService} from '../service/gateway.service';
+import {GatewayController} from '../controllers/gateway.controller';
+import {GatewayAuthController} from '../controllers/gateway-auth.controller';
+import {GatewayService} from '../services/gateway.service';
 import {JwtAuthGuard} from "../jwt/jwt-auth.guard";
 import {RolesGuard} from "../roles/roles.guard";
 import {JwtStrategy} from "../jwt/jwt.strategy";
 import {ConfigModule} from "@nestjs/config";
 import {configuration} from "../../../../config/configuration";
-import {AuthModule} from "../../../auth/src/auth.module";
+import {AuthModule} from "../../../auth/src/modules/auth.module";
 import {HttpModule} from "@nestjs/axios";
 import {APP_GUARD} from "@nestjs/core";
-import {GatewayEventController} from "../controller/gateway-event.controller";
+import {GatewayEventController} from "../controllers/gateway-event.controller";
 
 @Module({
   imports: [

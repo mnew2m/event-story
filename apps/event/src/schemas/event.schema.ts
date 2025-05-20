@@ -1,6 +1,6 @@
 import {Schema} from "mongoose";
-import {EventCondition, EventStatus} from "../../../common/enum/event.enum";
-import {YnEnum} from "../../../common/enum/yn.enum";
+import {EventCondition, EventStatus} from "../../../../common/enums/event.enum";
+import {YnEnum} from "../../../../common/enums/yn.enum";
 
 export const EVENT_MODEL_NAME = 'Event';
 

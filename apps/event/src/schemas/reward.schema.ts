@@ -1,5 +1,5 @@
 import {Schema} from "mongoose";
-import {RewardType} from "../../../common/enum/event.enum";
+import {RewardType} from "../../../../common/enums/event.enum";
 
 export const REWARD_MODEL_NAME = 'Reward';
 

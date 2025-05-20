@@ -1,6 +1,6 @@
 import {IsDate, IsEnum, IsNumber, IsOptional, IsString} from "class-validator";
 import {Type} from "class-transformer";
-import {EventCondition, EventStatus} from "../../../common/enum/event.enum";
+import {EventCondition, EventStatus} from "../../../../common/enums/event.enum";
 
 export class SearchEventDto {
   @IsString()

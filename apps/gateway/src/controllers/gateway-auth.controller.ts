@@ -1,6 +1,6 @@
 import {Body, Controller, Post} from '@nestjs/common';
 import {HttpService} from "@nestjs/axios";
-import {Public} from "../../../common/decorators/public-decorator";
+import {Public} from "../../../../common/decorators/public-decorator";
 import {LoginDto} from "../../../auth/src/dto/login.dto";
 import {firstValueFrom} from "rxjs";
 import {CreateUserDto} from "../../../auth/src/dto/create-user.dto";

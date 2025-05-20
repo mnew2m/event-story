@@ -1,5 +1,5 @@
 import {Schema} from "mongoose";
-import {RewardReqStatus} from "../../../common/enum/event.enum";
+import {RewardReqStatus} from "../../../../common/enums/event.enum";
 
 export const REWARD_REQ_MODEL_NAME = 'RewardReq';
 

@@ -1,12 +1,12 @@
 import {Module} from '@nestjs/common';
-import {EventController} from '../controller/event.controller';
-import {EventService} from '../service/event.service';
+import {EventController} from '../controllers/event.controller';
+import {EventService} from '../services/event.service';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {configuration} from "../../../../config/configuration";
 import {MongooseModule, MongooseModuleOptions} from "@nestjs/mongoose";
-import {EVENT_MODEL_NAME, EventSchema} from "../schema/event.schema";
-import {REWARD_MODEL_NAME, RewardSchema} from "../schema/reward.schema";
-import {REWARD_REQ_MODEL_NAME, RewardReqSchema} from "../schema/reward-req.schema";
+import {EVENT_MODEL_NAME, EventSchema} from "../schemas/event.schema";
+import {REWARD_MODEL_NAME, RewardSchema} from "../schemas/reward.schema";
+import {REWARD_REQ_MODEL_NAME, RewardReqSchema} from "../schemas/reward-req.schema";
 
 @Module({
   imports: [

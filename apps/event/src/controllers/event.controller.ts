@@ -1,12 +1,12 @@
 import {Body, Controller, ForbiddenException, Post} from '@nestjs/common';
-import {EventService} from '../service/event.service';
+import {EventService} from '../services/event.service';
 import {EventDto} from "../dto/event.dto";
-import {Event} from "../schema/event.schema";
+import {Event} from "../schemas/event.schema";
 import {RewardDto} from "../dto/reward.dto";
-import {Reward} from "../schema/reward.schema";
+import {Reward} from "../schemas/reward.schema";
 import {SearchEventDto} from "../dto/search-event.dto";
 import {SearchRewardDto} from "../dto/search-reward.dto";
-import {RewardReq} from "../schema/reward-req.schema";
+import {RewardReq} from "../schemas/reward-req.schema";
 import {RewardReqDto} from "../dto/reward-req.dto";
 import {SearchRewardReqDto} from "../dto/search-reward-req.dto";
 

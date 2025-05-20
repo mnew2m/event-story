@@ -1,6 +1,6 @@
 import {Document, Schema} from "mongoose";
 import * as bcrypt from 'bcrypt';
-import {UserRole} from "../../../common/enum/auth.enum";
+import {UserRole} from "../../../../common/enums/auth.enum";
 
 export const USER_MODEL_NAME = 'User';
 

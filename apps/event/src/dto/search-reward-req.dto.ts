@@ -1,6 +1,6 @@
 import {IsDate, IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString} from "class-validator";
 import {Type} from "class-transformer";
-import {EventCondition, EventStatus, RewardReqStatus, RewardType} from "../../../common/enum/event.enum";
+import {EventCondition, EventStatus, RewardReqStatus, RewardType} from "../../../../common/enums/event.enum";
 
 export class SearchRewardReqDto {
   @IsString()

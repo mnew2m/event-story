@@ -1,5 +1,5 @@
 import {Controller, Get} from '@nestjs/common';
-import {GatewayService} from '../service/gateway.service';
+import {GatewayService} from '../services/gateway.service';
 
 @Controller('some-protected-route')
 export class GatewayController {

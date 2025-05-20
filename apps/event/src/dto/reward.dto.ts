@@ -1,5 +1,5 @@
 import {IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsString} from "class-validator";
-import {RewardType} from "../../../common/enum/event.enum";
+import {RewardType} from "../../../../common/enums/event.enum";
 
 export class RewardDto {
   @IsMongoId()
